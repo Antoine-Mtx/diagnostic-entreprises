@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic de l'entreprise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 5px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diagnostic de l'entreprise</h1>
+    {% for category in categories %}
+        <h2>{{ category.name }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Score</th>
+                    <th>Commentaires</th>
+                    <th>Démarche pour progresser</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in category.questions %}
+                    <tr>
+                        <td>{{ question.question }}</td>
+                        <td>{{ question.score }}</td>
+                        <td>{{ question.comments }}</td>
+                        <td>{{ question.improvement }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+</body>
+</html>
