@@ -1,57 +1,61 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnostic de l'entreprise</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #999;
-            padding: 5px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <h1>Diagnostic de l'entreprise</h1>
-    {% for category in categories %}
-        <h2>{{ category.name }}</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Question</th>
-                    <th>Score</th>
-                    <th>Commentaires</th>
-                    <th>Démarche pour progresser</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for question in category.questions %}
-                    <tr>
-                        <td>{{ question.question }}</td>
-                        <td>{{ question.score }}</td>
-                        <td>{{ question.comments }}</td>
-                        <td>{{ question.improvement }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endfor %}
-</body>
+<html>
+  <head>
+    <title>Exemple de mise en forme d'un objet JSON en HTML</title>
+  </head>
+  <body>
+    <h1>Exemple de mise en forme d'un objet JSON en HTML</h1>
+    <div id="data"></div>
+
+    <script>
+      const data = {
+        // votre objet JSON ici
+      };
+
+      const dataDiv = document.getElementById("data");
+      const table = document.createElement("table");
+      const categories = Object.keys(data);
+
+      categories.forEach((category) => {
+        const section = data[category];
+        const sectionHeader = document.createElement("tr");
+        const sectionTitle = document.createElement("th");
+        sectionTitle.colSpan = 2;
+        sectionTitle.textContent = section.Catégorie;
+        sectionHeader.appendChild(sectionTitle);
+        table.appendChild(sectionHeader);
+
+        section.Questions.forEach((question) => {
+          const row = document.createElement("tr");
+          const questionCell = document.createElement("td");
+          const answerCell = document.createElement("td");
+          questionCell.textContent = question.Question;
+          answerCell.textContent = question[question.Réponse];
+          row.appendChild(questionCell);
+          row.appendChild(answerCell);
+          table.appendChild(row);
+        });
+
+        const scoreRow = document.createElement("tr");
+        const scoreLabel = document.createElement("td");
+        const scoreValue = document.createElement("td");
+        scoreLabel.textContent = "Score";
+        scoreValue.textContent = section.Score;
+        scoreRow.appendChild(scoreLabel);
+        scoreRow.appendChild(scoreValue);
+        table.appendChild(scoreRow);
+
+        const approachRow = document.createElement("tr");
+        const approachLabel = document.createElement("td");
+        const approachValue = document.createElement("td");
+        approachLabel.textContent = "Démarche pour progresser";
+        approachValue.textContent = section["Démarche pour progresser"];
+        approachRow.appendChild(approachLabel);
+        approachRow.appendChild(approachValue);
+        table.appendChild(approachRow);
+      });
+
+      dataDiv.appendChild(table);
+    </script>
+  </body>
 </html>
