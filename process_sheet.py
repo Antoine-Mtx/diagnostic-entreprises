@@ -1,13 +1,22 @@
 import pandas as pd
 import json
 
-file_path = 'J0_Grille_Antoine.xlsx'
-sheet_name = 'Axe Compétences'
+def concat_cells(group, col_index):
+    result = ''
+    for _, row in group.iterrows():
+        cell_value = row.iloc[col_index]
+        if pd.notnull(cell_value):
+            result += ' ' + str(cell_value)
+    return result.strip()
+
+
+file_path = 'J0_Grille_Acces_Editions.xlsx'
+sheet_name = 'Axe Réactivité'
 
 df = pd.read_excel(file_path, sheet_name=sheet_name, engine='openpyxl', header=3)
 
-# Exclure les colonnes 5 et 10
-df = df.drop(columns=[df.columns[4], df.columns[9]])
+# Exclure les colonnes avec un en-tête vide
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
 # Gérer les cellules fusionnées dans la première colonne
 df.iloc[:, 0] = df.iloc[:, 0].fillna(method='ffill')
@@ -15,8 +24,11 @@ df.iloc[:, 0] = df.iloc[:, 0].fillna(method='ffill')
 # Gérer les cellules fusionnées dans la troisième colonne
 df.iloc[:, 2] = df.iloc[:, 2].fillna(method='ffill')
 
-# Gérer les cellules fusionnées dans la onzième colonne
-df.iloc[:, 8] = df.iloc[:, 8].fillna(method='ffill')
+# Gérer les cellules fusionnées dans la dernière colonne
+progress_step_col_index = 8 if len(df.columns) > 7 else 7
+col1 = df.columns[progress_step_col_index]
+if col1 in df.columns:
+    df[col1] = df[col1].fillna(method='ffill')
 
 # Renommer la colonne "Items" en "Catégorie"
 df = df.rename(columns={'Items': 'Catégorie'})
@@ -40,13 +52,14 @@ for name, group in grouped:
             '2': row['2 points'],
             '1': row['1 point'],
             '0': row['0 point'],
-            'Commentaires': row['Commentaires/Justification (exemples concrets)'],
         }
+        if 'Commentaires/Justification (exemples concrets)' in row:
+            question_dict['Commentaire'] = row['Commentaires/Justification (exemples concrets)']
         questions.append(question_dict)
 
     category_dict['Questions'] = questions
     category_dict['Score'] = group['Score'].iloc[0]
-    category_dict['Démarche pour progresser'] = group['Démarche pour progresser'].iloc[0]
+    category_dict['Démarche pour progresser'] = concat_cells(group, progress_step_col_index)
     output.append(category_dict)
 
 # Convertir la liste des dictionnaires en JSON

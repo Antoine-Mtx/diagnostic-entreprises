@@ -1,0 +1,95 @@
+[
+    {
+        "Catégorie": "Excellence Technique/Communauté de pratiques",
+        "Questions": [
+            {
+                "Question": "Formations pour Apprendre à apprendre, changement de paradigme, \"être à la page\" (au-delà des compétences \"justes\" nécessaires)",
+                "Réponse": 0,
+                "2": "Possibilité de choisir et de suivre des formations \"annexes\" au métier et/ou temps dédié pour de la veille ou de l'auto-formation ",
+                "1": "Nombreuses formations métiers dans le plan de formation",
+                "0": "Désintérêt pour l'amélioration de la compétence des équipes",
+                "Commentaires": "Aucune formation via les CPF et pas d'encouragement à engager démarche pro-active pour se mettre à jour."
+            },
+            {
+                "Question": "Le co-développement (outil d'intelligence collective) existe-t-il dans l'entreprise ?",
+                "Réponse": 0,
+                "2": "Démarche instaurée et pratiquée régulièrement",
+                "1": "Quelques initiatives",
+                "0": "Pas du tout",
+                "Commentaires": "Rien de mis en place pour développer des synergies. La logique d'urgence prime."
+            },
+            {
+                "Question": "Les collaborateurs sont-ils amenés à partager leurs compétences et sous quelles formes ?",
+                "Réponse": 1,
+                "2": "Véritable communauté de pratiques mise en place",
+                "1": "Capitalisation d'un certain nombre de savoirs",
+                "0": "Aucune initiative",
+                "Commentaires": "Transmission nécessaire pour les métiers saisonniers (administration des ventes et préparation des commandes)."
+            },
+            {
+                "Question": "Le mentoring (fonctionnement en binôme) existe-t-il pour assurer le transfert de compétences ?",
+                "Réponse": 1,
+                "2": "Systématiquement lors d'une prise de poste",
+                "1": "Quelques initiatives",
+                "0": "Aucune initiative",
+                "Commentaires": "Partage ponctuel des compétences lorsque le besoin se fait sentir."
+            },
+            {
+                "Question": "Les managers sont-ils aussi formateurs sur certains sujet pour l'entreprise entière ?",
+                "Réponse": 0,
+                "2": "Quasi systématiquement",
+                "1": "Quelques fois",
+                "0": "Non",
+                "Commentaires": "Pas de managers."
+            },
+            {
+                "Question": "L'entreprise favorise-t-elle l'excellence technique ? (Principe 9 du Manifeste Agile)",
+                "Réponse": 1,
+                "2": "Oui",
+                "1": "Oui un peu",
+                "0": "Pas du tout",
+                "Commentaires": "Oui pour la qualité technique. Non pour la conception."
+            }
+        ],
+        "Score": 0.5,
+        "Démarche pour progresser": "Mise en place :\n- De formations / coachings techniques,\n- Du temps institutionnalisé pour la veille et/ou l'apprentissage,\n- D'incitations pour la tenue à jour des compétences des équipes internes ET externes,\n- De communautés de pratiques ou d'intérêts, des guildes,\n- Mentorat interne,\n- De revues d'amélioration continue,\n- D'Hackathons ou évènements pour promouvoir l'excellence technique et l'esprit agile"
+    },
+    {
+        "Catégorie": "Faire agile",
+        "Questions": [
+            {
+                "Question": "Déployez vous les pratiques du \"Faire Agile\", c'est-à-dire une ou plusieurs des \"méthodes\" agiles ?",
+                "Réponse": 0,
+                "2": "Déploiement systématique d'une ou plusieurs méthodes",
+                "1": "Quelques projets pilotes",
+                "0": "NON, nous les projets sont tous en cycle en V / cascade",
+                "Commentaires": "Non. La méthode Kanban fait loi avec une tâche après l'autre."
+            },
+            {
+                "Question": "Votre entreprise promeut-elle un \"état d'esprit agile\" ?",
+                "Réponse": 0,
+                "2": "Oui",
+                "1": "Quelques valeurs agiles promues",
+                "0": "Non",
+                "Commentaires": "Non, la boîte fonctionne de façon historique et empirique avec l'expérience accumulée au fur et à mesure des années."
+            }
+        ],
+        "Score": 0.0,
+        "Démarche pour progresser": "Pour un pilote : une équipe / un ilôt de projet\n\nPour le déploiement systématique, l'entreprise a une démarche d'analyse globale des pôles / projets / produits devant entrer dans un processus pour \"faire agile\". Si les conditions sont remplies, l'équipe projets / produits utilise la ou les \"méthodes\" préconisées."
+    },
+    {
+        "Catégorie": "Gestion humaine des compétences",
+        "Questions": [
+            {
+                "Question": "Votre entreprise gère-t-elle humainement les compétences ?",
+                "Réponse": 0,
+                "2": "Oui",
+                "1": "Un peu",
+                "0": "Non",
+                "Commentaires": "Même réponse que précédemment."
+            }
+        ],
+        "Score": 0.0,
+        "Démarche pour progresser": "Le second niveau devrait impliquer une attention à :\n- Des filières d'évolution distinctes (gestion de projet & expertise technique & expertise fonctionnelle & etc)\n- Des plans de formations en adéquation avec les filières\n- La recherche de profils avec des compétences \"Agiles\"\n- Un plan de développement structuré autour de l'agile\n\nLa gestion humaine des compétences impliquerait :\n- Une organisation vers la pluri-compétence\n- Une GPEC orientée vers un développement systématique de la liquidité des compétences\n- Des entretiens pluri-annuels\n- Des entretiens 360°"
+    }
+]
