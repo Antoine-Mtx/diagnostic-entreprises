@@ -2,16 +2,21 @@ import pandas as pd
 import json
 
 def concat_cells(group, col_index):
-    result = ''
-    for _, row in group.iterrows():
-        cell_value = row.iloc[col_index]
-        if pd.notnull(cell_value):
-            result += ' ' + str(cell_value)
-    return result.strip()
+    # Récupérer toutes les cellules non vides
+    non_empty_cells = group[group.columns[col_index]].dropna()
+
+    # Supprimer les doublons tout en conservant l'ordre
+    deduplicated_cells = []
+    for cell in non_empty_cells:
+        if cell not in deduplicated_cells:
+            deduplicated_cells.append(cell)
+
+    # Fusionner les cellules en une seule chaîne avec des retours à la ligne
+    return '\n'.join(deduplicated_cells)
 
 
 file_path = 'J0_Grille_Acces_Editions.xlsx'
-sheet_name = 'Axe Réactivité'
+sheet_name = 'Axe Compétences'
 
 df = pd.read_excel(file_path, sheet_name=sheet_name, engine='openpyxl', header=3)
 
@@ -25,7 +30,13 @@ df.iloc[:, 0] = df.iloc[:, 0].fillna(method='ffill')
 df.iloc[:, 2] = df.iloc[:, 2].fillna(method='ffill')
 
 # Gérer les cellules fusionnées dans la dernière colonne
-progress_step_col_index = 8 if len(df.columns) > 7 else 7
+if "Démarche pour progresser" in df.columns:
+    progress_step_col_index = df.columns.get_loc("Démarche pour progresser")
+elif "Vos idées pour progresser" in df.columns:
+    progress_step_col_index = df.columns.get_loc("Vos idées pour progresser")
+else:
+    raise ValueError("La colonne 'Démarche pour progresser' ou 'Vos idées pour progresser' est introuvable.")
+
 col1 = df.columns[progress_step_col_index]
 if col1 in df.columns:
     df[col1] = df[col1].fillna(method='ffill')
@@ -59,7 +70,11 @@ for name, group in grouped:
 
     category_dict['Questions'] = questions
     category_dict['Score'] = group['Score'].iloc[0]
-    category_dict['Démarche pour progresser'] = concat_cells(group, progress_step_col_index)
+
+    # Utiliser la fonction concat_cells sur le bon ensemble de lignes pour la catégorie actuelle
+    category_group = group.loc[group['Catégorie'] == name]
+    category_dict['Démarche pour progresser'] = concat_cells(category_group, progress_step_col_index)
+
     output.append(category_dict)
 
 # Convertir la liste des dictionnaires en JSON

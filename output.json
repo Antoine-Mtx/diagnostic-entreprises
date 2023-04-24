@@ -1,118 +1,95 @@
 [
     {
-        "Catégorie": "Défi environnemental",
+        "Catégorie": "Excellence Technique/Communauté de pratiques",
         "Questions": [
             {
-                "Question": "Les innovations produit tiennent compte de l'urgence climatique",
+                "Question": "Formations pour Apprendre à apprendre, changement de paradigme, \"être à la page\" (au-delà des compétences \"justes\" nécessaires)",
                 "Réponse": 0,
-                "2": "Systématiquement",
-                "1": "Des premières initiatives ont été lancées",
-                "0": "Auxune réflexion sur cet axe",
-                "Commentaire": "Ne fait pas partie des préoccupations."
+                "2": "Possibilité de choisir et de suivre des formations \"annexes\" au métier et/ou temps dédié pour de la veille ou de l'auto-formation ",
+                "1": "Nombreuses formations métiers dans le plan de formation",
+                "0": "Désintérêt pour l'amélioration de la compétence des équipes",
+                "Commentaire": "Aucune formation via les CPF et pas d'encouragement à engager démarche pro-active pour se mettre à jour."
             },
             {
-                "Question": "Les processus internes sont remis en cause pour diminuer leur impact environnemental",
+                "Question": "Le co-développement (outil d'intelligence collective) existe-t-il dans l'entreprise ?",
                 "Réponse": 0,
-                "2": "Systématiquement",
-                "1": "Des premières initiatives ont été lancées",
-                "0": "Auxune réflexion sur cet axe",
-                "Commentaire": "Ne fait pas partie des préoccupations."
+                "2": "Démarche instaurée et pratiquée régulièrement",
+                "1": "Quelques initiatives",
+                "0": "Pas du tout",
+                "Commentaire": "Rien de mis en place pour développer des synergies. La logique d'urgence prime."
             },
             {
-                "Question": "Les parties prenantes sont sélectionnées en fonction de leur éthique vis-à-vis du développement durable",
+                "Question": "Les collaborateurs sont-ils amenés à partager leurs compétences et sous quelles formes ?",
+                "Réponse": 1,
+                "2": "Véritable communauté de pratiques mise en place",
+                "1": "Capitalisation d'un certain nombre de savoirs",
+                "0": "Aucune initiative",
+                "Commentaire": "Transmission nécessaire pour les métiers saisonniers (administration des ventes et préparation des commandes)."
+            },
+            {
+                "Question": "Le mentoring (fonctionnement en binôme) existe-t-il pour assurer le transfert de compétences ?",
+                "Réponse": 1,
+                "2": "Systématiquement lors d'une prise de poste",
+                "1": "Quelques initiatives",
+                "0": "Aucune initiative",
+                "Commentaire": "Partage ponctuel des compétences lorsque le besoin se fait sentir."
+            },
+            {
+                "Question": "Les managers sont-ils aussi formateurs sur certains sujet pour l'entreprise entière ?",
                 "Réponse": 0,
-                "2": "Systématiquement",
-                "1": "Des premières initiatives ont été lancées",
-                "0": "Auxune réflexion sur cet axe",
-                "Commentaire": "Ne fait pas partie des préoccupations."
+                "2": "Quasi systématiquement",
+                "1": "Quelques fois",
+                "0": "Non",
+                "Commentaire": "Pas de managers."
+            },
+            {
+                "Question": "L'entreprise favorise-t-elle l'excellence technique ? (Principe 9 du Manifeste Agile)",
+                "Réponse": 1,
+                "2": "Oui",
+                "1": "Oui un peu",
+                "0": "Pas du tout",
+                "Commentaire": "Oui pour la qualité technique. Non pour la conception."
+            }
+        ],
+        "Score": 0.5,
+        "Démarche pour progresser": "Mise en place :\n- De formations / coachings techniques,\n- Du temps institutionnalisé pour la veille et/ou l'apprentissage,\n- D'incitations pour la tenue à jour des compétences des équipes internes ET externes,\n- De communautés de pratiques ou d'intérêts, des guildes,\n- Mentorat interne,\n- De revues d'amélioration continue,\n- D'Hackathons ou évènements pour promouvoir l'excellence technique et l'esprit agile"
+    },
+    {
+        "Catégorie": "Faire agile",
+        "Questions": [
+            {
+                "Question": "Déployez vous les pratiques du \"Faire Agile\", c'est-à-dire une ou plusieurs des \"méthodes\" agiles ?",
+                "Réponse": 0,
+                "2": "Déploiement systématique d'une ou plusieurs méthodes",
+                "1": "Quelques projets pilotes",
+                "0": "NON, nous les projets sont tous en cycle en V / cascade",
+                "Commentaire": "Non. La méthode Kanban fait loi avec une tâche après l'autre."
+            },
+            {
+                "Question": "Votre entreprise promeut-elle un \"état d'esprit agile\" ?",
+                "Réponse": 0,
+                "2": "Oui",
+                "1": "Quelques valeurs agiles promues",
+                "0": "Non",
+                "Commentaire": "Non, la boîte fonctionne de façon historique et empirique avec l'expérience accumulée au fur et à mesure des années."
             }
         ],
         "Score": 0.0,
-        "Démarche pour progresser": "Faire de l'ugence climatique une priorité sur l'ensemble des activités de l'entreprise par la mise en place de démarches :\n- d'éco-conception des produits\n- d'éco-industrialisation et d'éco-production sur l'ensemble des process\n- de développement durable (axes environnemental, social et sociétal)\n- performance énergétique des bâtiments et infrastructures des systèmes d'informations\n- green supply chain management Faire de l'ugence climatique une priorité sur l'ensemble des activités de l'entreprise par la mise en place de démarches :\n- d'éco-conception des produits\n- d'éco-industrialisation et d'éco-production sur l'ensemble des process\n- de développement durable (axes environnemental, social et sociétal)\n- performance énergétique des bâtiments et infrastructures des systèmes d'informations\n- green supply chain management Faire de l'ugence climatique une priorité sur l'ensemble des activités de l'entreprise par la mise en place de démarches :\n- d'éco-conception des produits\n- d'éco-industrialisation et d'éco-production sur l'ensemble des process\n- de développement durable (axes environnemental, social et sociétal)\n- performance énergétique des bâtiments et infrastructures des systèmes d'informations\n- green supply chain management"
+        "Démarche pour progresser": "Pour un pilote : une équipe / un ilôt de projet\n\nPour le déploiement systématique, l'entreprise a une démarche d'analyse globale des pôles / projets / produits devant entrer dans un processus pour \"faire agile\". Si les conditions sont remplies, l'équipe projets / produits utilise la ou les \"méthodes\" préconisées.\nVous devriez être à la promotion de quelques valeurs agiles en :\n- Construisant vos projets autour de personnes motivées\n- Développant les compétences pour la compréhension du client\n- Vous attachant davantage à la qualité qu'au coût lors des recrutements (en particulier externe)\n- Accompagnant vos clients\n\nVous atteignez un état d'esprit agile en :\n- Promouvant systématiquement le \"Fail Fast\"\n- Valorisant le métier de facilitateur plus que celui de pilote\n- Favorisant un management agile ou transformationnel\n- Acceptant que les équipes s'auto-organisent\n- Rentrant dans une logique de gestion de produits / services plus que de projets."
     },
     {
-        "Catégorie": "Environnements souples",
+        "Catégorie": "Gestion humaine des compétences",
         "Questions": [
             {
-                "Question": "Les installations techniques et de gestion sont modernes (TIC/ERP/CRM)",
-                "Réponse": 2,
-                "2": "En cas de besoin, le système d'information favorise la réactivité",
-                "1": "Le système d'information permet avec quelques difficultés d'avoir de la réactivité",
-                "0": "Le système d'information freine toute tentative de réagir rapidement",
-                "Commentaire": "Présence d'un ERP pour la comptébilité, la facturation et la gestion des commandes (SAGE). Utilisation d'un TIC (Rainbow) pour favoriser une communication rapide."
-            },
-            {
-                "Question": "Les équipes sont en capacité d'autonomiser une partie de leurs tâches",
+                "Question": "Votre entreprise gère-t-elle humainement les compétences ?",
                 "Réponse": 0,
-                "2": "L'entreprise équipe et forme ses équipes à la création de site web ou app via des outils no-code",
-                "1": "On laisse la possibilité de créer quelques macros Excel/VBA",
-                "0": "Jamais",
-                "Commentaire": "Pas de cas pratique pour illustrer en dehors de la sollicitation du CTO pour autonomiser certaines tâches."
-            },
-            {
-                "Question": "Les équipes s’inscrivent dans un cadre Agile Lean",
-                "Réponse": 1,
-                "2": "Les concepts Agile/Lean sont inscrits dans l'ADN de l'entreprise : Satisfaction du client avec des livraisons au plu tôt et régulières, accepter les changements, lisser les activités, collaboration quotidienne avec les parties prenantes, proximité terrain, autonomie des équipes dans la résolution de problèmes, amélioration continue...",
-                "1": "Plusieurs concepts Agile/Lean sont mis en œuvre dans l'entreprise",
-                "0": "Pas de démarche Agile/Lean initiée dans l'entreprise",
-                "Commentaire": "Satisfaction client mise en avant avec un service client disponible et réactif mais pas d'adoption d'une démarche Agile/Lean explicite."
-            },
-            {
-                "Question": "Les mécanismes de livraison et de synchronisation sont matures",
-                "Réponse": 0,
-                "2": "Concepts du juste à temps maîtrisés (production rythmée par la demande client, peu d'en-cours)",
-                "1": "Quelques concepts du juste à temps sont mis en œuvre pour tendre le flux",
-                "0": "Pas de démarche de tension des flux",
-                "Commentaire": "Les délais d'impression et les avantages de commandes en gros incitent à fonctionner avec du stock."
-            }
-        ],
-        "Score": 0.75,
-        "Démarche pour progresser": "Au sein de l'entreprise, nommer un Business Analyst qui sera alors le véritable chaînon manquant entre la DSI et les métiers.\n\nInvestir dans le Businness Object et le no-code\n\nFormer les équipes au Lean et/ou aux méthodes agiles\n\nDès que possible instaurer les concepts du juste à temps Au sein de l'entreprise, nommer un Business Analyst qui sera alors le véritable chaînon manquant entre la DSI et les métiers.\n\nInvestir dans le Businness Object et le no-code\n\nFormer les équipes au Lean et/ou aux méthodes agiles\n\nDès que possible instaurer les concepts du juste à temps Au sein de l'entreprise, nommer un Business Analyst qui sera alors le véritable chaînon manquant entre la DSI et les métiers.\n\nInvestir dans le Businness Object et le no-code\n\nFormer les équipes au Lean et/ou aux méthodes agiles\n\nDès que possible instaurer les concepts du juste à temps Au sein de l'entreprise, nommer un Business Analyst qui sera alors le véritable chaînon manquant entre la DSI et les métiers.\n\nInvestir dans le Businness Object et le no-code\n\nFormer les équipes au Lean et/ou aux méthodes agiles\n\nDès que possible instaurer les concepts du juste à temps"
-    },
-    {
-        "Catégorie": "Veille et benchmark",
-        "Questions": [
-            {
-                "Question": "Veille stratégique",
-                "Réponse": 0,
-                "2": "La veille stratégique de l'entreprise permet d'anticiper les disruptions nécessaires",
-                "1": "La veille stratégique de l'entreprise permet d'anticiper les évolutions et les innovations",
-                "0": "Pas de veille",
-                "Commentaire": "Le fonctionnement existant prime."
+                "2": "Oui",
+                "1": "Un peu",
+                "0": "Non",
+                "Commentaire": "Même réponse que précédemment."
             }
         ],
         "Score": 0.0,
-        "Démarche pour progresser": "Former les équipes à l'intelligence économique, la veille et le benchmarking.\nDevenir proactif : Apprendre à prendre du recul dans l'instantanéité pour avoir un coup d'avance Former les équipes à l'intelligence économique, la veille et le benchmarking.\nDevenir proactif : Apprendre à prendre du recul dans l'instantanéité pour avoir un coup d'avance"
-    },
-    {
-        "Catégorie": "Vélocité de réponse",
-        "Questions": [
-            {
-                "Question": "Valeur supérieure utilisable livrée plus tôt (Fonction principale utilisable dès les premières versions)",
-                "Réponse": 1,
-                "2": "Principe du MVP respecté : Minimum Viable Product / la version d'un produit qui permet d'obtenir un maximum de retours client avec un minimum d'effort",
-                "1": "Prototype fonctionnel intermédiaire livré au client",
-                "0": "Pas de phase de validation intermédiaire",
-                "Commentaire": "Le client est la boîte elle-même."
-            },
-            {
-                "Question": "Réactivité face aux impératifs prépondérants",
-                "Réponse": 1,
-                "2": "L'équipe de conception s'adapte en cas de modification en cours de conception",
-                "1": "Modifications en cours de conception engendrant alors du retard",
-                "0": "Pas de modification possible en cours de conception",
-                "Commentaire": "Evolutions au fur et à mesure de la conception mais sans processus clairement défini. Engendre du retard."
-            },
-            {
-                "Question": "Mesure de la vélocité de l'équipe (indicateur de suivi du travail d'une équipe de conception)",
-                "Réponse": 0,
-                "2": "Mesure de la vélocité",
-                "1": "Suivi des tâches",
-                "0": "Jamais",
-                "Commentaire": "Utilisation de Trello avec des checkbox et des retours sur les tickets."
-            }
-        ],
-        "Score": 0.6666666666666666,
-        "Démarche pour progresser": "Améliorer la vélocité des équipes en :\n- proposant aux clients internes comme externes, des MVP\n- traitant les aléas au fil de l'eau (via un PDCA par exemple)\n- mesurant cette vélocité (par la mise en place de burn down chart par exemple)\n- en formant les équipes aux outils de gestion du temps et des priorités dans un monde VUCA (pomodoro, kanban board...)\nVUCA :  Améliorer la vélocité des équipes en :\n- proposant aux clients internes comme externes, des MVP\n- traitant les aléas au fil de l'eau (via un PDCA par exemple)\n- mesurant cette vélocité (par la mise en place de burn down chart par exemple)\n- en formant les équipes aux outils de gestion du temps et des priorités dans un monde VUCA (pomodoro, kanban board...)\nVUCA :  Améliorer la vélocité des équipes en :\n- proposant aux clients internes comme externes, des MVP\n- traitant les aléas au fil de l'eau (via un PDCA par exemple)\n- mesurant cette vélocité (par la mise en place de burn down chart par exemple)\n- en formant les équipes aux outils de gestion du temps et des priorités dans un monde VUCA (pomodoro, kanban board...)\nVUCA :"
+        "Démarche pour progresser": "Le second niveau devrait impliquer une attention à :\n- Des filières d'évolution distinctes (gestion de projet & expertise technique & expertise fonctionnelle & etc)\n- Des plans de formations en adéquation avec les filières\n- La recherche de profils avec des compétences \"Agiles\"\n- Un plan de développement structuré autour de l'agile\n\nLa gestion humaine des compétences impliquerait :\n- Une organisation vers la pluri-compétence\n- Une GPEC orientée vers un développement systématique de la liquidité des compétences\n- Des entretiens pluri-annuels\n- Des entretiens 360°"
     }
 ]
