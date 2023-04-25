@@ -74,11 +74,23 @@ for sheet_name in sheet_names:
         print(f"Aucun axe trouvé pour le nom '{sheet_name}'. Vérifiez les données dans la base de données.")
         continue
     
-#     # Parcourir chaque ligne
-#     for row in sheet.iter_rows(min_row=4, values_only=True):
-#         # Ignorer les lignes avec une valeur 'None' pour la colonne de catégorie
-#         if row[0] is None:
-#             continue
+    merged_ranges = sheet.merged_cells.ranges
+
+    # for row in sheet.iter_rows(min_row=4, values_only=True):
+    #     # Vérifier si la cellule est fusionnée
+    #     is_merged = False
+    #     for merged_range in merged_ranges:
+    #         if row[0] in merged_range:
+    #             is_merged = True
+    #             merged_cells = merged_range
+    #             break
+
+    #     if is_merged:
+    #         # Extraire la valeur de la plage fusionnée
+    #         merged_value = sheet[merged_cells[0].coord].value
+    #         print(f"La cellule {merged_cells[0].coord} est fusionnée et contient la valeur {merged_value}.")
+    #     else:
+    #         print(f"La cellule {row[0].coordinate} n'est pas fusionnée.")
             
 #         # Gérer les cellules fusionnées pour la colonne de catégorie
 #         category_name = row[0].value

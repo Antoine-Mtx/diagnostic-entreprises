@@ -61,5 +61,7 @@ for sheet_name in sheets:
 
 json_data = json.dumps(data, ensure_ascii=False, indent=4)
 
-with open('output.json', 'w', encoding='utf-8') as json_file:
+output_file_name = f'output/{entreprise_name}.json'
+
+with open(output_file_name, 'w', encoding='utf-8') as json_file:
     json_file.write(json_data)
