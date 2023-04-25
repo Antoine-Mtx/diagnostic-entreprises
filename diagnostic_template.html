@@ -1,61 +1,114 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Exemple de mise en forme d'un objet JSON en HTML</title>
-  </head>
-  <body>
-    <h1>Exemple de mise en forme d'un objet JSON en HTML</h1>
-    <div id="data"></div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-    <script>
-      const data = {
-        // votre objet JSON ici
-      };
+<div class="container">
+    <h1 class="mt-4 mb-4">Formulaire</h1>
 
-      const dataDiv = document.getElementById("data");
-      const table = document.createElement("table");
-      const categories = Object.keys(data);
+    <div id="form-container">
+        <!-- Le formulaire sera généré ici -->
+    </div>
+</div>
 
-      categories.forEach((category) => {
-        const section = data[category];
-        const sectionHeader = document.createElement("tr");
-        const sectionTitle = document.createElement("th");
-        sectionTitle.colSpan = 2;
-        sectionTitle.textContent = section.Catégorie;
-        sectionHeader.appendChild(sectionTitle);
-        table.appendChild(sectionHeader);
+<script>
+async function loadJson(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Error fetching JSON: ${response.statusText}`);
+    }
+    return await response.json();
+}
 
-        section.Questions.forEach((question) => {
-          const row = document.createElement("tr");
-          const questionCell = document.createElement("td");
-          const answerCell = document.createElement("td");
-          questionCell.textContent = question.Question;
-          answerCell.textContent = question[question.Réponse];
-          row.appendChild(questionCell);
-          row.appendChild(answerCell);
-          table.appendChild(row);
-        });
+function createForm(jsonData) {
+    const formContainer = document.getElementById('form-container');
 
-        const scoreRow = document.createElement("tr");
-        const scoreLabel = document.createElement("td");
-        const scoreValue = document.createElement("td");
-        scoreLabel.textContent = "Score";
-        scoreValue.textContent = section.Score;
-        scoreRow.appendChild(scoreLabel);
-        scoreRow.appendChild(scoreValue);
-        table.appendChild(scoreRow);
+    // Utiliser Object.entries pour parcourir les propriétés de l'objet jsonData
+    Object.entries(jsonData).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+            const categoryContainer = document.createElement('div');
+            categoryContainer.classList.add('category-container', 'my-3');
+            formContainer.appendChild(categoryContainer);
 
-        const approachRow = document.createElement("tr");
-        const approachLabel = document.createElement("td");
-        const approachValue = document.createElement("td");
-        approachLabel.textContent = "Démarche pour progresser";
-        approachValue.textContent = section["Démarche pour progresser"];
-        approachRow.appendChild(approachLabel);
-        approachRow.appendChild(approachValue);
-        table.appendChild(approachRow);
-      });
+            const categoryTitle = document.createElement('h3');
+            categoryTitle.textContent = key;
+            categoryContainer.appendChild(categoryTitle);
 
-      dataDiv.appendChild(table);
-    </script>
-  </body>
+            value.forEach((category) => {
+                const questionContainer = document.createElement('div');
+                questionContainer.classList.add('question-container', 'my-2');
+                categoryContainer.appendChild(questionContainer);
+
+                const questionTitle = document.createElement('h4');
+                questionTitle.textContent = category.Catégorie;
+                questionContainer.appendChild(questionTitle);
+
+                category.Questions.forEach((question) => {
+                    const questionRow = document.createElement('div');
+                    questionRow.classList.add('row', 'mb-2');
+                    questionContainer.appendChild(questionRow);
+
+                    const questionText = document.createElement('div');
+                    questionText.classList.add('col-md-6');
+                    questionText.textContent = question.Question;
+                    questionRow.appendChild(questionText);
+
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.classList.add('col-md-6');
+                    questionRow.appendChild(optionsContainer);
+
+                    const optionLabels = ['0', '1', '2'];
+                    optionLabels.forEach((label, index) => {
+                        const optionLabel = document.createElement('label');
+                        optionLabel.classList.add('btn', 'btn-outline-primary', 'mx-1');
+                        optionLabel.textContent = question[label];
+                        optionsContainer.appendChild(optionLabel);
+
+                        const optionInput = document.createElement('input');
+                        optionInput.type = 'radio';
+                        optionInput.name = `question-${question.id}`;
+                        optionInput.value = index;
+                        optionInput.checked = question.Réponse === label;
+                        optionLabel.appendChild(optionInput);
+
+
+                    });
+
+                    const commentContainer = document.createElement('div');
+                    commentContainer.classList.add('comment-container', 'my-2');
+                    questionContainer.appendChild(commentContainer);
+
+                    const commentLabel = document.createElement('label');
+                    commentLabel.textContent = 'Commentaire :';
+                    commentContainer.appendChild(commentLabel);
+
+                    const commentTextarea = document.createElement('textarea');
+                    commentTextarea.classList.add('form-control');
+                    commentTextarea.value = question.Commentaire || '';
+                    commentContainer.appendChild(commentTextarea);
+                });
+            });
+        }
+    });
+}
+
+async function init() {
+    try {
+        const jsonData = await loadJson('output.json');
+        console.log('Loaded JSON:', jsonData); // Ajoutez cette ligne pour afficher le contenu du JSON
+        createForm(jsonData);
+    } catch (error) {
+        console.error('Error loading JSON:', error);
+    }
+}
+
+init();
+</script>
+
+</body>
 </html>
