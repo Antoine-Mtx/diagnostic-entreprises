@@ -2,7 +2,7 @@ import json
 import mysql.connector
 
 # Charger le fichier JSON
-with open("output.json", "r") as file:
+with open("output.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 # Connecter à la base de données MySQL
@@ -12,6 +12,7 @@ connection = mysql.connector.connect(
     password="",
     database="diagnostic",
     charset="utf8mb4",
+    collation="utf8mb4_unicode_ci",
     use_unicode=True
 )
 
