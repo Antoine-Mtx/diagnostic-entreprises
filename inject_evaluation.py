@@ -3,7 +3,7 @@ import mysql.connector
 from datetime import datetime
 
 # Charger le fichier JSON
-with open("output/Acces Editions.json", "r", encoding="utf-8") as file:
+with open("output/Bastien Seegmuller.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 # Connecter à la base de données MySQL

@@ -44,7 +44,7 @@ def process_sheet(file_path, sheet_name):
 
     return output
 
-file_path = 'data/J0_Grille_Acces_Editions.xlsx'
+file_path = 'data/J0_Grille_Bastien_Seegmuller.xlsx'
 sheets = ['Axe Compétences', 'Axe Réactivité', 'Axe Numérique']
 data = {}
 
