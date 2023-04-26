@@ -91,8 +91,60 @@ def submit_diagnostic():
     # Redirigez l'utilisateur vers la page de base
     return redirect(url_for('index'))
 
+@app.route('/diagnostics')
+def diagnostics():
+    # Établir la connexion avec la base de données
+    connection = pymysql.connect(**db_config)
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    # Récupérer les informations de l'entreprise et les dates de diagnostic
+    cursor.execute("SELECT e.id AS enterprise_id, e.name AS enterprise_name, eval.created_at FROM enterprise e JOIN evaluation eval ON e.id = eval.enterprise_id")
+    evaluations = cursor.fetchall()
+
+    # Fermer la connexion à la base de données
+    cursor.close()
+    connection.close()
+
+    # Renvoyer la page HTML avec les données des entreprises et les dates de diagnostic
+    return render_template('diagnostics.html', evaluations=evaluations)
+
+@app.route('/diagnostic/<int:enterprise_id>', endpoint="diagnostic_view")
+def diagnostic(enterprise_id):
+    # Établir la connexion avec la base de données
+    connection = pymysql.connect(**db_config)
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    
+    # Récupérer les informations de l'entreprise et les données du diagnostic
+    cursor.execute("SELECT * FROM enterprise WHERE id=%s", (enterprise_id,))
+    enterprise = cursor.fetchone()
+
+    cursor.execute("SELECT * FROM axis")
+    axes = cursor.fetchall()
+
+    cursor.execute("SELECT * FROM category")
+    categories = cursor.fetchall()
+
+    cursor.execute("SELECT * FROM question")
+    questions = cursor.fetchall()
+
+    cursor.execute("SELECT eq.* FROM evaluation_question eq JOIN evaluation e ON eq.evaluation_id = e.id WHERE e.enterprise_id=%s", (enterprise_id,))
+    evaluation_questions = cursor.fetchall()
+
+    # Imbriquer les catégories et les questions dans les axes appropriés
+    for axis in axes:
+        axis['categories'] = [cat for cat in categories if cat['axis_id'] == axis['id']]
+        for category in axis['categories']:
+            category['questions'] = [question for question in questions if question['category_id'] == category['id']]
+
+    # Fermer la connexion à la base de données
+    cursor.close()
+    connection.close()
+
+    # Renvoyer la page HTML avec les données de l'entreprise et les axes imbriqués
+    return render_template('diagnostic.html', enterprise=enterprise, axes=axes, evaluation={"questions": evaluation_questions})
+
 # Route pour afficher le diagnostic d'une entreprise
-@app.route('/diagnostic/<int:enterprise_id>')
+@app.route('/diagnostic_update/<int:enterprise_id>')
 def diagnostic(enterprise_id):
     # Établir la connexion avec la base de données
     connection = pymysql.connect(**db_config)
@@ -122,7 +174,7 @@ def diagnostic(enterprise_id):
     connection.close()
 
     # Renvoyer la page HTML avec les données de l'entreprise et les axes imbriqués
-    return render_template('diagnostic.html', enterprise=enterprise, axes=axes)
+    return render_template('diagnostic_update.html', enterprise=enterprise, axes=axes)
 
 if __name__ == '__main__':
     app.run(debug=True)
