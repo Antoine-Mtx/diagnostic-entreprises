@@ -9,7 +9,7 @@ db_config = {
     'host': '127.0.0.1',
     'user': 'root',
     'password': '',
-    'db': 'diagnostic'
+    'db': 'test'
 }
 
 # Page par défaut
@@ -58,7 +58,7 @@ def submit_diagnostic():
 
     # Insérez le nom de l'entreprise dans la table "enterprise" et récupérez l'ID de l'entreprise créée
     cursor.execute("INSERT INTO enterprise (name) VALUES (%s)", (enterprise_name,))
-    entreprise_id = cursor.lastrowid
+    enterprise_id = cursor.lastrowid
 
     # Insérez la date de soumission et l'entreprise dans la table "evaluation"
     cursor.execute("INSERT INTO evaluation (enterprise_id, created_at) VALUES (%s, %s)", (enterprise_id, evaluation_created_at))
