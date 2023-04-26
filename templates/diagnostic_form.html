@@ -12,8 +12,8 @@
     <h1 class="mt-4 mb-4">Diagnostic pour l'entreprise</h1>
     <form id="diagnostic-form" action="{{ url_for('submit_diagnostic') }}" method="POST">
       <div class="mb-3">
-        <label for="company_name" class="form-label">Nom de votre entreprise</label>
-        <input type="text" class="form-control" id="company_name" name="company_name" required>
+        <label for="enterprise_name" class="form-label">Nom de votre entreprise</label>
+        <input type="text" class="form-control" id="enterprise_name" name="enterprise_name" required>
       </div>
       {% for axis in axes %}
             <fieldset>
@@ -23,17 +23,21 @@
                         <h2 class="h4 mb-3">{{ category.name }}</h2>
                         {% for question in category.questions %}
                             <div class="question mb-2">
-                                <label for="evaluation_question_{{ question.id }}" class="form-label">{{ question.content }}</label>
-                                <select id="evaluation_question_{{ question.id }}" name="evaluation_question_{{ question.id }}" class="form-select">
+                                <label for="evaluation_question_choice{{ question.id }}" class="form-label">{{ question.content }}</label>
+                                <select id="evaluation_question_choice{{ question.id }}" name="evaluation_question_choice{{ question.id }}" class="form-select">
                                     <option value="0">{{ question.option_0 }}</option>
                                     <option value="1">{{ question.option_1 }}</option>
                                     <option value="2">{{ question.option_2 }}</option>
                                 </select>
+                                <div class="mb-3">
+                                    <label for="evaluation_question_comment_{{ question.id }}" class="form-label">Commentaires</label>
+                                    <textarea class="form-control" id="evaluation_question_comment_{{ question.id }}" name="evaluation_question_comment_{{ question.id }}" rows="3"></textarea>
+                                </div>
                             </div>
                         {% endfor %}
                         <div class="mb-3">
-                            <label for="evaluation_category_{{ category.id }}" class="form-label">Vos idées pour progresser</label>
-                            <textarea class="form-control" id="evaluation_category_{{ category.id }}" name="evaluation_category_{{ category.id }}" rows="3"></textarea>
+                            <label for="evaluation_category_comment{{ category.id }}" class="form-label">Vos idées pour progresser</label>
+                            <textarea class="form-control" id="evaluation_category_comment{{ category.id }}" name="evaluation_category_comment{{ category.id }}" rows="3"></textarea>
                         </div>
                     </div>
                 {% endfor %}
