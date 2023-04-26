@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de diagnostic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-4 mb-4">Diagnostic pour l'entreprise</h1>
+    <form id="diagnostic-form" action="{{ url_for('submit_diagnostic') }}" method="POST">
+      <div class="mb-3">
+        <label for="company_name" class="form-label">Nom de votre entreprise</label>
+        <input type="text" class="form-control" id="company_name" name="company_name" required>
+      </div>
+      {% for axis in axes %}
+            <fieldset>
+                <legend class="fs-3 fw-bold mb-3">{{ axis.name }}</legend>
+                {% for category in axis.categories %}
+                    <div class="category mb-4">
+                        <h2 class="h4 mb-3">{{ category.name }}</h2>
+                        {% for question in category.questions %}
+                            <div class="question mb-2">
+                                <label for="evaluation_question_{{ question.id }}" class="form-label">{{ question.content }}</label>
+                                <select id="evaluation_question_{{ question.id }}" name="evaluation_question_{{ question.id }}" class="form-select">
+                                    <option value="0">{{ question.option_0 }}</option>
+                                    <option value="1">{{ question.option_1 }}</option>
+                                    <option value="2">{{ question.option_2 }}</option>
+                                </select>
+                            </div>
+                        {% endfor %}
+                        <div class="mb-3">
+                            <label for="evaluation_category_{{ category.id }}" class="form-label">Vos idées pour progresser</label>
+                            <textarea class="form-control" id="evaluation_category_{{ category.id }}" name="evaluation_category_{{ category.id }}" rows="3"></textarea>
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary my-3">Soumettre</button>
+    </form>
+</div>
+
+</body>
+</html>
