@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for
+from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for, Response
 from datetime import datetime
 import pymysql
 import os
+import json
 from dotenv import load_dotenv
 
 # Charger les variables d'environnement depuis le fichier .env
@@ -14,8 +15,13 @@ db_config = {
     'host': os.environ['DB_HOST'],
     'user': os.environ['DB_USER'],
     'password': os.environ['DB_PASSWORD'],
-    'db': os.environ['DB_NAME']
+    'db': os.environ['DB_NAME'],
+    'charset': 'utf8mb4',
 }
+
+# ------------------
+#       ROUTES
+# ------------------
 
 # Page par défaut
 @app.route('/')
@@ -199,6 +205,72 @@ def diagnostic(enterprise_id):
 
     # Renvoyer la page HTML avec les données de l'entreprise et les axes imbriqués
     return render_template('diagnostic_update.html', enterprise=enterprise, axes=axes)
+
+# ---------------
+#       API
+# ---------------
+
+@app.route('/api/diagnostics', methods=['GET'])
+def api_diagnostics():
+    # Établir la connexion avec la base de données
+    connection = pymysql.connect(**db_config)
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    # Récupérer les informations de l'entreprise et les dates de diagnostic
+    cursor.execute("SELECT e.id AS enterprise_id, e.name AS enterprise_name, eval.id AS evaluation_id, eval.created_at FROM enterprise e JOIN evaluation eval ON e.id = eval.enterprise_id")
+    evaluations = cursor.fetchall()
+
+    # Fermer la connexion à la base de données
+    cursor.close()
+    connection.close()
+
+    response = Response(json.dumps(diagnostics, ensure_ascii=False), content_type='application/json; charset=utf-8')
+    return response
+
+@app.route('/api/diagnostic/<int:evaluation_id>', methods=['GET'])
+def api_diagnostic(evaluation_id):
+    # Établir la connexion avec la base de données
+    connection = pymysql.connect(**db_config)
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    # Récupérer les informations de l'évaluation et de l'entreprise
+    cursor.execute("SELECT e.*, eval.id AS evaluation_id, eval.created_at FROM enterprise e JOIN evaluation eval ON e.id = eval.enterprise_id WHERE eval.id=%s", (evaluation_id,))
+    evaluation = cursor.fetchone()
+
+    cursor.execute("SELECT * FROM axis")
+    axes = cursor.fetchall()
+
+    cursor.execute("SELECT * FROM category")
+    categories = cursor.fetchall()
+
+    cursor.execute("SELECT * FROM question")
+    questions = cursor.fetchall()
+
+    cursor.execute("SELECT eq.* FROM evaluation_question eq WHERE eq.evaluation_id=%s", (evaluation_id,))
+    evaluation_questions = cursor.fetchall()
+
+    # Imbriquer les catégories et les questions dans les axes appropriés
+    for axis in axes:
+        axis['categories'] = [cat for cat in categories if cat['axis_id'] == axis['id']]
+        for category in axis['categories']:
+            category['questions'] = [question for question in questions if question['category_id'] == category['id']]
+
+    # Fermer la connexion à la base de données
+    cursor.close()
+    connection.close()
+
+    diagnostic = {
+        'enterprise': evaluation,
+        'axes': axes,
+        'evaluation_questions': evaluation_questions
+    }
+
+    if diagnostic:
+        response = Response(json.dumps(diagnostic, ensure_ascii=False), content_type='application/json; charset=utf-8')
+        return response
+    else:
+        return make_response(jsonify({"error": "Diagnostic not found"}), 404)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
