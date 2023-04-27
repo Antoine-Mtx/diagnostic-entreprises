@@ -210,6 +210,15 @@ def diagnostic(enterprise_id):
 #       API
 # ---------------
 
+def datetime_to_str(dt):
+    return dt.strftime('%Y-%m-%d %H:%M:%S')
+
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return datetime_to_str(obj)
+        return super().default(obj)
+
 @app.route('/api/diagnostics', methods=['GET'])
 def api_diagnostics():
     # Établir la connexion avec la base de données
@@ -218,14 +227,17 @@ def api_diagnostics():
 
     # Récupérer les informations de l'entreprise et les dates de diagnostic
     cursor.execute("SELECT e.id AS enterprise_id, e.name AS enterprise_name, eval.id AS evaluation_id, eval.created_at FROM enterprise e JOIN evaluation eval ON e.id = eval.enterprise_id")
-    evaluations = cursor.fetchall()
+    diagnostics = cursor.fetchall()
 
     # Fermer la connexion à la base de données
     cursor.close()
     connection.close()
 
-    response = Response(json.dumps(diagnostics, ensure_ascii=False), content_type='application/json; charset=utf-8')
-    return response
+    if diagnostics:
+        response = Response(json.dumps(diagnostics, cls=CustomJSONEncoder, ensure_ascii=False), content_type='application/json; charset=utf-8')
+        return response
+    else:
+        return make_response(jsonify({"error": "Diagnostics non trouvés"}), 404)
 
 @app.route('/api/diagnostic/<int:evaluation_id>', methods=['GET'])
 def api_diagnostic(evaluation_id):
@@ -266,10 +278,10 @@ def api_diagnostic(evaluation_id):
     }
 
     if diagnostic:
-        response = Response(json.dumps(diagnostic, ensure_ascii=False), content_type='application/json; charset=utf-8')
+        response = Response(json.dumps(diagnostic, cls=CustomJSONEncoder, ensure_ascii=False), content_type='application/json; charset=utf-8')
         return response
     else:
-        return make_response(jsonify({"error": "Diagnostic not found"}), 404)
+        return make_response(jsonify({"error": "Diagnostic non trouvé"}), 404)
 
 
 if __name__ == '__main__':
