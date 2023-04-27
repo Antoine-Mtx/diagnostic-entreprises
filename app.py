@@ -98,7 +98,7 @@ def diagnostics():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
     # Récupérer les informations de l'entreprise et les dates de diagnostic
-    cursor.execute("SELECT e.id AS enterprise_id, e.name AS enterprise_name, eval.created_at FROM enterprise e JOIN evaluation eval ON e.id = eval.enterprise_id")
+    cursor.execute("SELECT e.id AS enterprise_id, e.name AS enterprise_name, eval.id AS evaluation_id, eval.created_at FROM enterprise e JOIN evaluation eval ON e.id = eval.enterprise_id")
     evaluations = cursor.fetchall()
 
     # Fermer la connexion à la base de données
@@ -108,15 +108,16 @@ def diagnostics():
     # Renvoyer la page HTML avec les données des entreprises et les dates de diagnostic
     return render_template('diagnostics.html', evaluations=evaluations)
 
-@app.route('/diagnostic/<int:enterprise_id>', endpoint="diagnostic_view")
-def diagnostic(enterprise_id):
+
+@app.route('/diagnostic/<int:evaluation_id>', endpoint="diagnostic_view")
+def diagnostic(evaluation_id):
     # Établir la connexion avec la base de données
     connection = pymysql.connect(**db_config)
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    
-    # Récupérer les informations de l'entreprise et les données du diagnostic
-    cursor.execute("SELECT * FROM enterprise WHERE id=%s", (enterprise_id,))
-    enterprise = cursor.fetchone()
+
+    # Récupérer les informations de l'évaluation et de l'entreprise
+    cursor.execute("SELECT e.*, eval.id AS evaluation_id, eval.created_at FROM enterprise e JOIN evaluation eval ON e.id = eval.enterprise_id WHERE eval.id=%s", (evaluation_id,))
+    evaluation = cursor.fetchone()
 
     cursor.execute("SELECT * FROM axis")
     axes = cursor.fetchall()
@@ -127,8 +128,26 @@ def diagnostic(enterprise_id):
     cursor.execute("SELECT * FROM question")
     questions = cursor.fetchall()
 
-    cursor.execute("SELECT eq.* FROM evaluation_question eq JOIN evaluation e ON eq.evaluation_id = e.id WHERE e.enterprise_id=%s", (enterprise_id,))
+    cursor.execute("SELECT eq.* FROM evaluation_question eq WHERE eq.evaluation_id=%s", (evaluation_id,))
     evaluation_questions = cursor.fetchall()
+
+    # Calculer les scores moyens pour chaque catégorie
+    for category in categories:
+        total_score = 0
+        question_count = 0
+
+        for question in questions:
+            if question['category_id'] == category['id']:
+                for evaluation_question in evaluation_questions:
+                    if evaluation_question['question_id'] == question['id']:
+                        total_score += evaluation_question['choice']
+                        question_count += 1
+                        break
+
+        if question_count > 0:
+            category['score'] = round(total_score / question_count, 2)*5/2
+        else:
+            category['score'] = 0
 
     # Imbriquer les catégories et les questions dans les axes appropriés
     for axis in axes:
@@ -141,7 +160,7 @@ def diagnostic(enterprise_id):
     connection.close()
 
     # Renvoyer la page HTML avec les données de l'entreprise et les axes imbriqués
-    return render_template('diagnostic.html', enterprise=enterprise, axes=axes, evaluation={"questions": evaluation_questions})
+    return render_template('diagnostic.html', enterprise=evaluation, axes=axes, evaluation={"questions": evaluation_questions})
 
 # Route pour afficher le diagnostic d'une entreprise
 @app.route('/diagnostic_update/<int:enterprise_id>')

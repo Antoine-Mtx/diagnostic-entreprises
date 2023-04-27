@@ -13,10 +13,10 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for evaluation in evaluations %}
             <div class="col">
-                <div class="card h-100" onclick="location.href='{{ url_for('diagnostic', enterprise_id=evaluation.enterprise_id) }}'" style="cursor:pointer;">
+                <div class="card h-100" onclick="location.href='{{ url_for('diagnostic_view', evaluation_id=evaluation.evaluation_id) }}'" style="cursor:pointer;">
                     <div class="card-body">
                         <h5 class="card-title">{{ evaluation.enterprise_name }}</h5>
-                        <p class="card-text">Date du diagnostic : {{ evaluation.created_at }}</p>
+                        <p class="card-text">Date du diagnostic : {{ evaluation.created_at.strftime('%d/%m/%Y') }}</p>
                     </div>
                 </div>
             </div>
