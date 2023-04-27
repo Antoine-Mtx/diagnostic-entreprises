@@ -1,15 +1,20 @@
 from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for
 from datetime import datetime
 import pymysql
+import os
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
 
 app = Flask(__name__)
 
-# Configurez vos informations de connexion à la base de données ici
+# Configurer vos informations de connexion à la base de données ici
 db_config = {
-    'host': '127.0.0.1',
-    'user': 'root',
-    'password': '',
-    'db': 'test'
+    'host': os.environ['DB_HOST'],
+    'user': os.environ['DB_USER'],
+    'password': os.environ['DB_PASSWORD'],
+    'db': os.environ['DB_NAME']
 }
 
 # Page par défaut
@@ -56,39 +61,39 @@ def submit_diagnostic():
     connection = pymysql.connect(**db_config)
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
-    # Insérez le nom de l'entreprise dans la table "enterprise" et récupérez l'ID de l'entreprise créée
+    # Insérer le nom de l'entreprise dans la table "enterprise" et récupérer l'ID de l'entreprise créée
     cursor.execute("INSERT INTO enterprise (name) VALUES (%s)", (enterprise_name,))
     enterprise_id = cursor.lastrowid
 
-    # Insérez la date de soumission et l'entreprise dans la table "evaluation"
+    # Insérer la date de soumission et l'entreprise dans la table "evaluation"
     cursor.execute("INSERT INTO evaluation (enterprise_id, created_at) VALUES (%s, %s)", (enterprise_id, evaluation_created_at))
     evaluation_id = cursor.lastrowid
     
-    # Parcourez toutes les données soumises et identifiez les champs "evaluation_category_comment"
+    # Parcourer toutes les données soumises et identifier les champs "evaluation_category_comment"
     for field, value in form_data.items():
         if field.startswith('evaluation_category_comment'):
             category_id = int(field[len('evaluation_category_comment'):])
             comment = value
             
-            # Insérez les données récupérées dans la table "evaluation_category"
+            # Insérer les données récupérées dans la table "evaluation_category"
             cursor.execute("INSERT INTO evaluation_category (evaluation_id, category_id, comment) VALUES (%s, %s, %s)", (evaluation_id, category_id, comment))
 
-        # Traitez les champs "evaluation_question_choice" et "evaluation_question_comment"
+        # Traiter les champs "evaluation_question_choice" et "evaluation_question_comment"
         elif field.startswith('evaluation_question_choice'):
             question_id = int(field[len('evaluation_question_choice'):])
             choice = int(value)
             comment_field = f'evaluation_question_comment_{question_id}'
             comment = form_data.get(comment_field, '')
 
-            # Insérez les données récupérées dans la table "evaluation_question" ou la table appropriée
+            # Insérer les données récupérées dans la table "evaluation_question" ou la table appropriée
             cursor.execute("INSERT INTO evaluation_question (evaluation_id, question_id, choice, comment) VALUES (%s, %s, %s, %s)", (evaluation_id, question_id, choice, comment))
     
-    # Validez les changements et fermez le curseur
+    # Valider les changements et fermer le curseur
     connection.commit()
     cursor.close()
     connection.close()
 
-    # Redirigez l'utilisateur vers la page de base
+    # Rediriger l'utilisateur vers la page de base
     return redirect(url_for('index'))
 
 @app.route('/diagnostics')

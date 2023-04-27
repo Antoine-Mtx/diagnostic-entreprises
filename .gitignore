@@ -1,0 +1,45 @@
+# Fichier .gitignore pour un projet Python
+
+# Ignorer le fichier .env contenant les variables d'environnement
+.env
+
+# Fichiers et dossiers généraux
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+
+# Dossiers de l'environnement virtuel
+venv/
+env/
+*.egg-info/
+
+# Fichiers de cache
+.cache/
+.pytest_cache/
+
+# Fichiers temporaires
+*.tmp
+*.log
+*.swp
+*.bak
+*.swo
+
+# Fichiers générés par les éditeurs et IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Fichiers générés par les outils de construction et les packages
+dist/
+build/
+*.egg
+*.egg-info/
+*.eggs/
+*.o
+*.so
+
+# Fichiers générés par les outils de documentation
+docs/_build/
